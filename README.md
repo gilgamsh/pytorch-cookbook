@@ -376,7 +376,7 @@ t.item()  # 取出单个 tensor 的值
 t.dim()  # 维度
 ~~~
 
-### 3. Tensor Create
+### 3. Tensor toolbox
 
 ##### 最基本的Tensor创建方式
 
@@ -430,6 +430,18 @@ Pytorch 有几种不同的复制方式，注意区分
 | tensor.clone()        | New               | Yes                        |
 | tensor.detach()       | Shared            | No                         |
 | tensor.detach.clone() | New               | No                         |
+
+##### einops
+
+```python
+from einops import rearrange, reduce, repeat
+#rearrange img.shape,(6, 96, 96, 3) float64
+rearrange(ims[0], 'h w c -> w h c')
+rearrange(ims, 'b h w c -> (b h) w c')
+
+```
+
+
 
 ### 4. 索引、比较、排序
 
@@ -2060,5 +2072,4 @@ for i in range(100):
 - pytorch 官方文档和tutorial
 
 - https://github.com/IgorSusmelj/pytorch-styleguide
-
 
