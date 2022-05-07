@@ -435,9 +435,29 @@ Pytorch 有几种不同的复制方式，注意区分
 
 ```python
 from einops import rearrange, reduce, repeat
-#rearrange img.shape,(6, 96, 96, 3) float64
+#rearrange
+#用于维度的交换
 rearrange(ims[0], 'h w c -> w h c')
-rearrange(ims, 'b h w c -> (b h) w c')
+
+#用于拆分，合并维度 ()中的表示一个维度
+i_tensor = torch.randn(16, 3, 224, 224)
+o_tensor = rearrange(i_tensor, 'n c h w -> n c (h w)')#变成了3维度
+o_tensor = rearrange(i_tensor, 'n c (m1 p1) (m2 p2) -> n c m1 p1 m2 p2', p1=16, p2=16)#变成了6维度
+
+#repeat
+o_tensor = repeat(i_tensor, 'c h w -> n c h w', n=16)  
+
+#reduce 
+i_tensor = torch.randn((16, 3, 224, 224))
+o_tensor = reduce(i_tensor, 'n c h w -> c h w', 'mean')
+o_tensor_ = reduce(i_tensor, 'b c (m1 p1) (m2 p2)  -> b c m1 m2 ', 'mean', p1=16, p2=16)
+```
+
+##### einsum
+
+哑标和自由标
+
+```
 
 ```
 
@@ -672,13 +692,14 @@ torch.mm(tensor1, tensor2)   # 矩阵乘法  (m*n) * (n*p) -> (m*p)
 torch.bmm(tensor1, tensor2) # batch的矩阵乘法: (b*m*n) * (b*n*p) -> (b*m*p).
 torch.mv(tensor, vec) #　矩阵向量乘法 (m*n) * (n) = (m)
 tensor1 * tensor2 # Element-wise multiplication.
+matmul
 ~~~
 
 ### 9. 基本机制
 
 ##### 广播机制
 
-不同形状的 Tensor 进行计算时， 可以自动扩展到较大的相同形状再进行计算。 广播机制的前提是一个 Tensor  至少有一个维度，且从尾部遍历 Tensor 时，两者维度必须相等， 其中七个要么是1， 要么不存在
+不同形状的 Tensor 进行计算时， 可以自动扩展到较大的相同形状再进行计算。 广播机制的前提是一个 Tensor  至少有一个维度，且从尾部遍历 Tensor 时，两者维度必须相等， 其中要么全是1， 要么不存在
 
 ##### 向量化操作
 
@@ -905,7 +926,7 @@ for t in range(0, 10):
 
 ~~~python
 torch.save(model.state_dict(), 'xxxx_params.pth')
-model.load_state_dict(t.load('xxxx_params.pth'))
+model.load_state_dict(torch.load('xxxx_params.pth'))
 
 torch.save(model, 'xxxx.pth')
 model.torch.load('xxxx.pth')
@@ -1520,6 +1541,12 @@ if not requires_grad:
     for param in self.parameters():
         param.requires_grad = False
 ~~~
+
+#### Norm
+
+##### layernorm
+
+
 
 ### 3. 数据
 
