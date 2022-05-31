@@ -412,7 +412,7 @@ torch.normal(mean=torch.arange(1., 11.), std=torch.arange(1, 0, -0.1))
 tensor([-0.1987,  3.1957,  3.5459,  2.8150,  5.5398,  5.6116,  7.5512,  7.8650,
          9.3151, 10.1827])
 torch.uniform(from,to) # 均匀分布 
-
+torch.randint(low=0,high,size) #size一定是元组
 torch.arange(s, e, steps)  # 从 s 到 e，步长为 step
 torch.linspace(s, e, num)   # 从 s 到 e, 均匀切分为 num 份
 # ! 注意linespace和arange的区别，前者的最后一个参数是生成的Tensor中元素的数量，而后者的最后一个参数是步长。
@@ -842,6 +842,7 @@ nn.SmoothL1Loss(size_average=True, reduce=True)
 nn.SoftMarginLoss(size_average=True, reduce=True)
 nn.TripletMarginLoss(margin=1.0, p=2, eps=1e-06, swap=False, size_average=True, reduce=True)
 nn.CosineEmbeddingLoss(margin=0, size_average=True, reduce=True)
+
 ~~~
 
 ##### functional
