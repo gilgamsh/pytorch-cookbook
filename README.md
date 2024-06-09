@@ -1720,6 +1720,12 @@ torch.autograd.set_detect_anomaly(True) 是 PyTorch 中用于启用异常检测�
 NaNs（Not a Number）或Infs（Infinity）：如果在前向或反向传播过程中出现这些值，PyTorch 会立即抛出异常，而不是默默地继续计算。
 梯度计算错误：如果在反向传播过程中有任何非法操作，PyTorch 会报告出错的具体操作和位置。
 
+#### torch.multiprocessing.set_sharing_strategy
+
+torch.multiprocessing.set_sharing_strategy('file_system')
+
+torch.multiprocessing.set_sharing_strategy 是 PyTorch 中用于设置多进程间共享张量数据的策略的方法。PyTorch 支持多种共享策略，主要有两种：file_system 和 file_descriptor。 file_system更鲁棒，但是runtime可能有所牺牲
+
 
 ## 五. 网络优化和加速 [alpha]
 
