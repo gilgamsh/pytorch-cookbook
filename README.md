@@ -1708,6 +1708,17 @@ for images, labels in train_loader:
 
 参见： [Synchronized-BatchNorm-PyTorchgithub](vacancy/Synchronized-BatchNorm-PyTorchgithub.com)
 
+### Debug
+
+#### 在复杂的自动微分图 启用异常检测模式
+
+torch.autograd.set_detect_anomaly(True) 是 PyTorch 中用于启用异常检测模式的函数。这在调试复杂的自动微分图（autograd graph）时非常有用。
+
+作用
+当你启用异常检测模式时，PyTorch 会在计算图中进行更严格的检查，以捕捉异常和不正确的梯度计算。例如，它可以帮助你发现以下问题：
+
+NaNs（Not a Number）或Infs（Infinity）：如果在前向或反向传播过程中出现这些值，PyTorch 会立即抛出异常，而不是默默地继续计算。
+梯度计算错误：如果在反向传播过程中有任何非法操作，PyTorch 会报告出错的具体操作和位置。
 
 
 ## 五. 网络优化和加速 [alpha]
