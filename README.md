@@ -130,6 +130,8 @@
 
 ### 1. numpy array 和 Tensor(CPU & GPU)
 
+numpy array, CPU Tensor, GPU Tensor 两两互相转化
+
 ~~~shell
 >>> import torch
 >>> import numpy as np
@@ -161,6 +163,7 @@ tensor([1., 1., 1., 1., 1.], device='cuda:0', dtype=torch.float64)
 
 ​    Pytorch 0.4 之前的模式为:　**Tensor 没有梯度计算，加上梯度更新等操作后可以变为Variable**.  Pytorch0.4 将 Tensor 和Variable 合并。默认 Tensor 的 require_grad 为 false，可以通过修改 requires_grad 来为其添加梯度更新操作。
 
+在 PyTorch 中，torch.nn.Linear、torch.nn.Conv2d 等模块的参数（例如权重和偏置）默认设置为 requires_grad=True 是因为这些参数是使用 torch.nn.Parameter 类进行创建的。
 ~~~python
 >>> y
 tensor([1., 1., 1., 1., 1.], dtype=torch.float64)  
